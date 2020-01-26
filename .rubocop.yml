@@ -1,0 +1,22 @@
+require:
+  - rubocop-performance
+  - rubocop-rspec
+
+Metrics/LineLength:
+  Max: 100
+  Exclude:
+    - spec/**/*
+
+Metrics/MethodLength:
+  Max: 20
+
+Metrics/ParameterLists:
+  Max: 7
+
+Metrics/BlockLength:
+  Enabled: true
+  Exclude:
+    - spec/**/*
+
+Metrics/ClassLength:
+  Max: 120
