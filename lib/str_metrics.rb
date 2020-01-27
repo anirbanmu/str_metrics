@@ -16,8 +16,24 @@ class StrMetrics
 
   # These just do proper namespacing, manage parameters & redirect into rust implementation
   module SorensenDice
-    def self.coefficient(a, b, ignore_case: false)
-      ::StrMetricsImpl.sorensen_dice_coefficient(a, b, ignore_case)
+    def self.coefficient(str_a, str_b, ignore_case: false)
+      ::StrMetricsImpl.sorensen_dice_coefficient(str_a, str_b, ignore_case)
+    end
+  end
+
+  module Jaro
+    def self.similarity(str_a, str_b, ignore_case: false)
+      ::StrMetricsImpl.jaro_similarity(str_a, str_b, ignore_case)
+    end
+  end
+
+  module JaroWinkler
+    def self.similarity(str_a, str_b, ignore_case: false, prefix_scaling_factor: 0.1)
+      ::StrMetricsImpl.jaro_winkler_similarity(str_a, str_b, ignore_case, 4, prefix_scaling_factor)
+    end
+
+    def self.distance(str_a, str_b, ignore_case: false, prefix_scaling_factor: 0.1)
+      ::StrMetricsImpl.jaro_winkler_distance(str_a, str_b, ignore_case, 4, prefix_scaling_factor)
     end
   end
 end
