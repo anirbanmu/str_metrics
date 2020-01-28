@@ -30,6 +30,7 @@ Gem::Specification.new do |spec|
   spec.extensions = %w[extconf.rb]
 
   spec.add_runtime_dependency     'helix_runtime', '~> 0.7'
+  spec.add_development_dependency 'pry'
   spec.add_development_dependency 'rake', '~> 12.0'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'rubocop'
