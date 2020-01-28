@@ -5,10 +5,10 @@ abort 'Rust compiler required (https://www.rust-lang.org/)' if `which rustc`.emp
 File.open('Makefile', 'wb') do |f|
   f.puts(<<~MKCONTENT)
     all:
-    \tbundle --deployment --path vendor/bundle
-    \tbundle exec rake
+    \tcargo rustc --release -- -C link-args=-Wl,-undefined,dynamic_lookup
+    \tmv ./target/release/libstr_metrics.so ./lib/str_metrics
     clean:
     install:
-    \trm -r vendor/bundle target
+    \trm -r target ./lib/str_metrics/libstr_metrics.so
   MKCONTENT
 end

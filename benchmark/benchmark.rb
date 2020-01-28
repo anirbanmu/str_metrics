@@ -31,7 +31,7 @@ n = 100_000
 
 Benchmark.bmbm do |x|
   x.report "str_metrics (#{`git rev-parse --short HEAD`.chop!})" do
-    n.times { SAMPLES[:ascii].each { |str1, str2| StrMetricsImpl.jaro_winkler_distance(str1, str2, false, 4, 0.1) } }
+    n.times { SAMPLES[:ascii].each { |str1, str2| StrMetrics::JaroWinkler.similarity(str1, str2) } }
   end
 
   x.report gem_name_with_version('jaro_winkler') do

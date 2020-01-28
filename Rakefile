@@ -2,10 +2,14 @@
 
 require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
-require 'helix_runtime/build_task'
+# require 'helix_runtime/build_task'
 
-HelixRuntime::BuildTask.new
+# HelixRuntime::BuildTask.new
 RSpec::Core::RakeTask.new(:spec)
 
-task default: :build
-task spec: :build
+task :rust_build do
+  `cargo rustc --release -- -C link-args=-Wl,-undefined,dynamic_lookup`
+  `mv ./target/release/libstr_metrics.so ./lib/str_metrics`
+end
+
+task spec: :rust_build
