@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     str_metrics (0.1.0)
-      helix_runtime (~> 0.7)
+      ffi
 
 GEM
   remote: https://rubygems.org/
@@ -22,10 +22,6 @@ GEM
       rake
     fuzzy-string-match (1.0.1)
       RubyInline (>= 3.8.6)
-    helix_runtime (0.7.5)
-      rake (>= 10.0)
-      thor (>= 0.19.4, < 2.0)
-      tomlrb (~> 1.2.4)
     hotwater (0.1.2)
       ffi
       ffi-compiler
@@ -73,10 +69,8 @@ GEM
       sexp_processor (~> 4.9)
     sexp_processor (4.13.0)
     sync (0.5.0)
-    thor (1.0.1)
     tins (1.24.0)
       sync
-    tomlrb (1.2.9)
     unicode-display_width (1.6.1)
 
 PLATFORMS

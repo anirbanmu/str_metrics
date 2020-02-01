@@ -5,7 +5,7 @@ Ruby gem (native extension in Rust) providing implementations of various string 
 ## Getting Started
 ### Prerequisites
 
-Install Rust (known to work with `rustc 1.40.0` & `cargo 1.40.0`) with:
+Install Rust (known to work with `rustc 1.41.0` & `cargo 1.41.0`) with:
 
 ```sh
 curl https://sh.rustup.rs -sSf | sh
