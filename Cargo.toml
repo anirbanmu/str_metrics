@@ -10,5 +10,6 @@ crate-type = ["cdylib"]
 [dependencies]
 unicode-segmentation = "^1.6"
 libc = "^0.2"
+itertools = "^0.8"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

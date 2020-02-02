@@ -20,16 +20,16 @@ module StrMetrics
     jaro_similarity_c(str_a, str_b, ignore_case ? 1 : 0)
   end
 
-  attach_function :jaro_winkler_similarity_c, %i[string string char int double], :double
+  attach_function :jaro_winkler_similarity_c, %i[string string char int double double], :double
   private_class_method :jaro_winkler_similarity_c
-  def self.jaro_winkler_similarity(str_a, str_b, ignore_case: false, prefix_scaling_factor: 0.1)
-    jaro_winkler_similarity_c(str_a, str_b, ignore_case ? 1 : 0, 4, prefix_scaling_factor)
+  def self.jaro_winkler_similarity(str_a, str_b, ignore_case: false, prefix_scaling_factor: 0.1, prefix_scaling_bonus_threshold: 0.7)
+    jaro_winkler_similarity_c(str_a, str_b, ignore_case ? 1 : 0, 4, prefix_scaling_factor, prefix_scaling_bonus_threshold)
   end
 
-  attach_function :jaro_winkler_distance_c, %i[string string char int double], :double
+  attach_function :jaro_winkler_distance_c, %i[string string char int double double], :double
   private_class_method :jaro_winkler_distance_c
-  def self.jaro_winkler_distance(str_a, str_b, ignore_case: false, prefix_scaling_factor: 0.1)
-    jaro_winkler_distance_c(str_a, str_b, ignore_case ? 1 : 0, 4, prefix_scaling_factor)
+  def self.jaro_winkler_distance(str_a, str_b, ignore_case: false, prefix_scaling_factor: 0.1, prefix_scaling_bonus_threshold: 0.7)
+    jaro_winkler_distance_c(str_a, str_b, ignore_case ? 1 : 0, 4, prefix_scaling_factor, prefix_scaling_bonus_threshold)
   end
 
   module SorensenDice
