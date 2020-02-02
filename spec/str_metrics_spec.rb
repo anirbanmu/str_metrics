@@ -60,24 +60,35 @@ RSpec.describe StrMetrics do
     end
   end
 
-  # describe 'JaroWinkler' do
-  #   describe '.similarity' do
-  #     [
-  #       Case.new('dwayne', 'duane', Rational(37, 45)),
-  #       Case.new('dwAyne', 'duane', Rational(7, 10)),
-  #       Case.new('Dwayne', 'duAnE', Rational(37, 45), ignore_case: true),
-  #       Case.new('dixon', 'dicksonx', Rational(23, 30)),
-  #       Case.new('jellyfish', 'smellyfish', Rational(121, 135)),
-  #       Case.new('martha', 'marhta', Rational(17, 18)),
-  #       Case.new('arnab', 'raanb', Rational(13, 15)),
-  #       Case.new('münchen', 'munch', Rational(83, 105)), # Make sure there's no assumption about ASCII
-  #       Case.new('mÜnchen', 'münch', Rational(19, 21), ignore_case: true), # Make sure ignore_case works with non-ASCII
-  #       Case.new('অআইঈউ', 'অঝইঈউ', Rational(13, 15))
-  #     ].each do |c|
-  #       it c.test_str do
-  #         expect(StrMetrics::JaroWinkler.similarity(*c.input, **c.keywords).to_r.rationalize(0.00001)).to eq(c.output)
-  #       end
-  #     end
-  #   end
-  # end
+  describe 'JaroWinkler' do
+    [
+      Case.new('dwayne', 'duane', 0.84000),
+      Case.new('dwAyne', 'duane', 0.73000),
+      Case.new('Dwayne', 'duAnE', 0.84000, ignore_case: true),
+      Case.new('dixon', 'dicksonx', 0.81333),
+      Case.new('jellyfish', 'smellyfish', 0.89629),
+      Case.new('martha', 'marhta', 0.96111),
+      Case.new('arnab', 'raanb', 0.86666),
+      Case.new('münchen', 'munch', 0.81142), # Make sure there's no assumption about ASCII
+      Case.new('mÜnchen', 'münch', 0.94285, ignore_case: true), # Make sure ignore_case works with non-ASCII
+      Case.new('অআইঈউ', 'অঝইঈউ', 0.88),
+      Case.new('y̆', 'y', 0.0) # Compared as graphemes so no match at all
+    ].tap do |cases|
+      describe '.similarity' do
+        cases.each do |c|
+          it c.test_str do
+            expect(StrMetrics::JaroWinkler.similarity(*c.input, **c.keywords)).to be_within(0.0001).of(c.output)
+          end
+        end
+      end
+
+      describe '.distance' do
+        cases.map { |c| Case.new(c.input[0], c.input[1], 1.0 - c.output, **c.keywords) }.each do |c|
+          it c.test_str do
+            expect(StrMetrics::JaroWinkler.distance(*c.input, **c.keywords)).to be_within(0.0001).of(c.output)
+          end
+        end
+      end
+    end
+  end
 end

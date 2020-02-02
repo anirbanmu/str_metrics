@@ -8,8 +8,8 @@ require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec)
 
 task :rust_build do
-  `cargo rustc --release -- -C link-args=-Wl,-undefined,dynamic_lookup`
-  `mv ./target/release/libstr_metrics.so ./lib/str_metrics`
+  `cargo rustc --release`
+  `mv -f ./target/release/libstr_metrics.so ./lib/str_metrics`
 end
 
 task spec: :rust_build
