@@ -72,7 +72,8 @@ RSpec.describe StrMetrics do
       Case.new('münchen', 'munch', 0.81142), # Make sure there's no assumption about ASCII
       Case.new('mÜnchen', 'münch', 0.94285, ignore_case: true), # Make sure ignore_case works with non-ASCII
       Case.new('অআইঈউ', 'অঝইঈউ', 0.88),
-      Case.new('y̆', 'y', 0.0) # Compared as graphemes so no match at all
+      Case.new('y̆', 'y', 0.0), # Compared as graphemes so no match at all
+      Case.new('abcdxxxxxxxxxxxxxxxxxxxxxxxxxx', 'dcbayyyyyyyyyyyyyyyyyyyyyyyyyy', 0.25555) # Check transpositions
     ].tap do |cases|
       describe '.similarity' do
         cases.each do |c|

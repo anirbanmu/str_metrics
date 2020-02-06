@@ -116,19 +116,23 @@ mod jaro {
         }
 
         // let grapheme_iterators = [UnicodeSegmentation::graphemes(&case_handled[0][..], true), UnicodeSegmentation::graphemes(&case_handled[1][..], true)];
-        let lengths = [graphemes[0].len(), graphemes[1].len()];
+        let lens = [graphemes[0].len(), graphemes[1].len()];
 
-        let matching_dist = (cmp::max(lengths[0], lengths[1]) / 2) - 1;
+        let max_length = cmp::max(lens[0], lens[1]);
+        let matching_dist = (max_length / 2) - 1;
 
-        let mut b_matching_indices = Vec::with_capacity(cmp::max(lengths[0], lengths[1]));
+        let mut matching_indices = [
+            Vec::with_capacity(max_length),
+            Vec::with_capacity(max_length),
+        ];
 
         // Find matches
         let mut last_matched_prefix_index = -1;
         {
-            let mut b_matched = vec![false; lengths[1]];
+            let mut b_matched = vec![false; lens[1]];
             for (i, grapheme) in graphemes[0].iter().enumerate() {
                 let start = cmp::max(0 as i64, i as i64 - matching_dist as i64) as usize;
-                let end = cmp::min(lengths[1], i + matching_dist + 1);
+                let end = cmp::min(lens[1], i + matching_dist + 1);
 
                 // Keep track of prefix match
                 // Safe to access i in b since a.len < b.len
@@ -142,14 +146,15 @@ mod jaro {
                 for j in start..end {
                     if grapheme == &graphemes[1][j] && !b_matched[j] {
                         b_matched[j] = true;
-                        b_matching_indices.push(j);
+                        matching_indices[0].push(i);
+                        matching_indices[1].push(j);
                         break;
                     }
                 }
             }
         }
 
-        let matches = b_matching_indices.len();
+        let matches = matching_indices[0].len();
         if matches == 0 {
             return JaroSimilarityResult {
                 value: 0.0,
@@ -157,16 +162,23 @@ mod jaro {
             };
         }
 
-        // Find transpositions in matches
-        let transpositions =
-            b_matching_indices
-                .windows(2)
-                .fold(0, |acc, pair| if pair[0] > pair[1] { acc + 1 } else { acc });
+        // Find transpositions / 2 in matches
+        matching_indices[1].sort_unstable();
+        let transpositions = matching_indices[0]
+            .iter()
+            .zip(matching_indices[1].iter())
+            .fold(0.0, |acc, (i, j)| {
+                if graphemes[0][*i] == graphemes[1][*j] {
+                    acc
+                } else {
+                    acc + 0.5
+                }
+            });
 
         let m = matches as f64;
-        let t = transpositions as f64;
+        let t = transpositions;
         return JaroSimilarityResult {
-            value: ((m / lengths[0] as f64) + (m / lengths[1] as f64) + ((m - t as f64) / m)) / 3.0,
+            value: ((m / lens[0] as f64) + (m / lens[1] as f64) + ((m - t) / m)) / 3.0,
             max_prefix_length: last_matched_prefix_index + 1,
         };
     }
