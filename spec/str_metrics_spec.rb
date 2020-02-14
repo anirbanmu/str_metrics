@@ -92,4 +92,25 @@ RSpec.describe StrMetrics do
       end
     end
   end
+
+  describe 'Levenshtein' do
+    describe '.similarity' do
+      [
+        Case.new('', 'a', 1),
+        Case.new('bb', '', 2),
+        Case.new('a', 'b', 1),
+        Case.new('y̆', 'y', 1),
+        Case.new('hello', 'hello', 0),
+        Case.new('kitten', 'sitting', 3),
+        Case.new('kItTen', 'sittinG', 3, ignore_case: true),
+        Case.new('GUMBO', 'GAMBOL', 2),
+        Case.new('Honda', 'Hyundai', 3),
+        Case.new('Sleepy', 'Dopey', 4)
+      ].each do |c|
+        it c.test_str do
+          expect(StrMetrics::Levenshtein.distance(*c.input, **c.keywords)).to eq(c.output)
+        end
+      end
+    end
+  end
 end
