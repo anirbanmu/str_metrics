@@ -4,13 +4,10 @@ use std::cmp;
 
 pub fn distance(a: &str, b: &str, ignore_case: bool) -> i64 {
     if ignore_case {
-        let case_ignored = [a.to_lowercase(), b.to_lowercase()];
-        let graphemes = [graphemes(&case_ignored[0]), graphemes(&case_ignored[1])];
-        return distance_impl(&graphemes[0], &graphemes[1]);
+        return distance_impl(&graphemes(&a.to_lowercase()), &graphemes(&b.to_lowercase()));
     }
 
-    let graphemes = [graphemes(&a), graphemes(b)];
-    return distance_impl(&graphemes[0], &graphemes[1]);
+    distance_impl(&graphemes(a), &graphemes(b))
 }
 
 fn distance_impl<T: Eq>(a: &Vec<T>, b: &Vec<T>) -> i64 {

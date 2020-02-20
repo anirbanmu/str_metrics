@@ -12,7 +12,20 @@ class Case
   def test_str
     kw = keywords.map { |k, v| "#{k}: #{v}" }.join(', ')
     kw_string = !kw.empty? ? " with options { #{kw} }" : ''
-    "comparing \"#{input[0]}\", \"#{input[1]}\"#{kw_string} yields #{output}"
+
+    "comparing \"#{input[0].encode('UTF-8')}\" (#{input[0].encoding}), "\
+    "\"#{input[1].encode('UTF-8')}\" (#{input[1].encoding})#{kw_string} yields #{output}"
+  end
+end
+
+def account_for_encodings(cases)
+  encodings = %w[ASCII UTF-8 UTF-16 UTF-32 BIG5].then { |e| e.product(e) }
+
+  cases.each.with_object([]) do |c, arr|
+    encodings.each do |enc0, enc1|
+      arr.push(Case.new(c.input[0].encode(enc0), c.input[1].encode(enc1), c.output, **c.keywords))
+    rescue Encoding::UndefinedConversionError
+    end
   end
 end
 
@@ -25,13 +38,14 @@ RSpec.describe StrMetrics do
     describe '.coefficient' do
       [
         Case.new('night', 'night', 1),
+        Case.new('abc', 'def', 0),
         Case.new('night', 'niGHt', 1, ignore_case: true),
         Case.new('night', 'nacht', 0.25),
         Case.new('nightht', 'hta', 0.25), # Make sure there's no issue with double counting
         Case.new('münchen', 'munch', 0.4), # Make sure there's no assumption about ASCII
         Case.new('mÜnchen', 'münch', 0.8, ignore_case: true),
         Case.new('অআইঈউ', 'অঝইঈউ', 0.5)
-      ].each do |c|
+      ].then(&method(:account_for_encodings)).each do |c|
         it c.test_str do
           expect(StrMetrics::SorensenDice.coefficient(*c.input, **c.keywords)).to be_within(0.0001).of(c.output)
         end
@@ -42,6 +56,8 @@ RSpec.describe StrMetrics do
   describe 'Jaro' do
     describe '.similarity' do
       [
+        Case.new('hello', 'hello', 1.0),
+        Case.new('abc', 'def', 0.0),
         Case.new('dwayne', 'duane', 0.82222),
         Case.new('dwAyne', 'duane', 0.7),
         Case.new('Dwayne', 'duAnE', 0.82222, ignore_case: true),
@@ -52,7 +68,7 @@ RSpec.describe StrMetrics do
         Case.new('münchen', 'munch', 0.79047), # Make sure there's no assumption about ASCII
         Case.new('mÜnchen', 'münch', 0.90476, ignore_case: true), # Make sure ignore_case works with non-ASCII
         Case.new('অআইঈউ', 'অঝইঈউ', 0.86666)
-      ].each do |c|
+      ].then(&method(:account_for_encodings)).each do |c|
         it c.test_str do
           expect(StrMetrics::Jaro.similarity(*c.input, **c.keywords)).to be_within(0.0001).of(c.output)
         end
@@ -62,6 +78,8 @@ RSpec.describe StrMetrics do
 
   describe 'JaroWinkler' do
     [
+      Case.new('hello', 'hello', 1.0),
+      Case.new('abc', 'def', 0.0),
       Case.new('dwayne', 'duane', 0.84000),
       Case.new('dwAyne', 'duane', 0.73000),
       Case.new('Dwayne', 'duAnE', 0.84000, ignore_case: true),
@@ -74,7 +92,7 @@ RSpec.describe StrMetrics do
       Case.new('অআইঈউ', 'অঝইঈউ', 0.88),
       Case.new('y̆', 'y', 0.0), # Compared as graphemes so no match at all
       Case.new('abcdxxxxxxxxxxxxxxxxxxxxxxxxxx', 'dcbayyyyyyyyyyyyyyyyyyyyyyyyyy', 0.25555) # Check transpositions
-    ].tap do |cases|
+    ].then(&method(:account_for_encodings)).tap do |cases|
       describe '.similarity' do
         cases.each do |c|
           it c.test_str do
@@ -94,7 +112,7 @@ RSpec.describe StrMetrics do
   end
 
   describe 'Levenshtein' do
-    describe '.similarity' do
+    describe '.distance' do
       [
         Case.new('', 'a', 1),
         Case.new('bb', '', 2),
@@ -106,9 +124,34 @@ RSpec.describe StrMetrics do
         Case.new('GUMBO', 'GAMBOL', 2),
         Case.new('Honda', 'Hyundai', 3),
         Case.new('Sleepy', 'Dopey', 4)
-      ].each do |c|
+      ].then(&method(:account_for_encodings)).each do |c|
         it c.test_str do
           expect(StrMetrics::Levenshtein.distance(*c.input, **c.keywords)).to eq(c.output)
+        end
+      end
+    end
+  end
+
+  describe 'DamerauLevenshtein' do
+    describe '.distance' do
+      [
+        Case.new('', 'a', 1),
+        Case.new('bb', '', 2),
+        Case.new('a', 'b', 1),
+        Case.new('y̆', 'y', 1),
+        Case.new('hello', 'hello', 0),
+        Case.new('Hello', 'hello', 1),
+        Case.new('Hello', 'hello', 0, ignore_case: true),
+        Case.new('a cat', 'a tc', 2),
+        Case.new('a cat', 'a abct', 2),
+        Case.new('smtih', 'smith', 1),
+        Case.new('ⓕⓞⓤⓡ', 'ⓕⓤⓞⓡ', 1),
+        Case.new('1234567890', '1324576809', 3),
+        Case.new('ogogle', 'googel', 2),
+        Case.new('abcd', 'acb', 2)
+      ].then(&method(:account_for_encodings)).each do |c|
+        it c.test_str do
+          expect(StrMetrics::DamerauLevenshtein.distance(*c.input, **c.keywords)).to eq(c.output)
         end
       end
     end

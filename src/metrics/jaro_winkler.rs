@@ -9,7 +9,7 @@ pub fn similarity(
     prefix_scaling_factor: f64,
     prefix_scaling_bonus_threshold: f64,
 ) -> f64 {
-    let jaro_similarity = jaro::similarity(a, b, ignore_case, true);
+    let jaro_similarity = jaro::similarity(a, b, ignore_case);
     let common_prefix_len = cmp::min(prefix_length as i64, jaro_similarity.max_prefix_length);
 
     if jaro_similarity.value > prefix_scaling_bonus_threshold {

@@ -4,10 +4,9 @@ use std::collections::HashMap;
 
 pub fn coefficient(a: &str, b: &str, ignore_case: bool) -> f64 {
     if ignore_case {
-        let case_handled = [a.to_lowercase(), b.to_lowercase()];
-        return coefficient_impl(&case_handled[0], &case_handled[1]);
+        return coefficient_impl(&a.to_lowercase(), &b.to_lowercase());
     }
-    return coefficient_impl(a, b);
+    coefficient_impl(a, b)
 }
 
 fn coefficient_impl(a: &str, b: &str) -> f64 {
