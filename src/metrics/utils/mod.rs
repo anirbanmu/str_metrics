@@ -4,6 +4,9 @@ extern crate unicode_segmentation;
 use itertools::Itertools;
 use unicode_segmentation::UnicodeSegmentation;
 
+mod array_2d;
+pub use array_2d::Array2D;
+
 pub fn graphemes(s: &str) -> Vec<&str> {
     return UnicodeSegmentation::graphemes(s, true).collect::<Vec<&str>>();
 }
