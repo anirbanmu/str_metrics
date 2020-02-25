@@ -2,8 +2,8 @@ require:
   - rubocop-performance
   - rubocop-rspec
 
-Metrics/LineLength:
-  Max: 100
+Layout/LineLength:
+  Max: 120
   Exclude:
     - spec/**/*
 
@@ -17,6 +17,12 @@ Metrics/BlockLength:
   Enabled: true
   Exclude:
     - spec/**/*
+    - str_metrics.gemspec
 
 Metrics/ClassLength:
   Max: 120
+
+Naming/MethodParameterName:
+  Enabled: true
+  Exclude:
+    - spec/**/*

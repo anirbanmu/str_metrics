@@ -1,4 +1,4 @@
-use crate::metrics::utils::{graphemes, with_case_ignored};
+use crate::metrics::utils::graphemes;
 use std::cmp;
 
 pub struct JaroSimilarityResult {
@@ -6,33 +6,12 @@ pub struct JaroSimilarityResult {
     pub max_prefix_length: i64,
 }
 
-pub fn similarity(
-    a: &str,
-    b: &str,
-    ignore_case: bool,
-    compare_by_graphemes: bool,
-) -> JaroSimilarityResult {
+pub fn similarity(a: &str, b: &str, ignore_case: bool) -> JaroSimilarityResult {
     if ignore_case {
-        let case_handled = [with_case_ignored(&a, true), with_case_ignored(&b, true)];
-        if compare_by_graphemes {
-            let graphemes = [graphemes(&case_handled[0]), graphemes(&case_handled[1])];
-            return similarity_impl(&graphemes[0], &graphemes[1]);
-        }
-        return similarity_impl(
-            &case_handled[0].chars().collect::<Vec<char>>(),
-            &case_handled[1].chars().collect::<Vec<char>>(),
-        );
+        return similarity_impl(&graphemes(&a.to_lowercase()), &graphemes(&b.to_lowercase()));
     }
 
-    if compare_by_graphemes {
-        let graphemes = [graphemes(a), graphemes(b)];
-        return similarity_impl(&graphemes[0], &graphemes[1]);
-    }
-
-    return similarity_impl(
-        &a.chars().collect::<Vec<char>>(),
-        &b.chars().collect::<Vec<char>>(),
-    );
+    similarity_impl(&graphemes(a), &graphemes(b))
 }
 
 fn similarity_impl<T: Eq>(a: &Vec<T>, b: &Vec<T>) -> JaroSimilarityResult {

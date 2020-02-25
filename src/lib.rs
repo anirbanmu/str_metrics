@@ -52,7 +52,7 @@ pub extern "C" fn jaro_similarity(
         Ok(s) => s,
     };
 
-    return metrics::jaro::similarity(a_str, b_str, ignore_case == 1, true).value;
+    return metrics::jaro::similarity(a_str, b_str, ignore_case == 1).value;
 }
 
 #[no_mangle]
@@ -117,18 +117,48 @@ pub extern "C" fn levenshtein_distance(
     b: *const c_char,
     ignore_case: c_char,
 ) -> i64 {
+    if a.is_null() || b.is_null() {
+        return std::i64::MAX;
+    }
+
     let a_c_str = unsafe { CStr::from_ptr(a) };
     let b_c_str = unsafe { CStr::from_ptr(b) };
 
     let a_str = match a_c_str.to_str() {
-        Err(_e) => return 0,
+        Err(_e) => return std::i64::MAX,
         Ok(s) => s,
     };
 
     let b_str = match b_c_str.to_str() {
-        Err(_e) => return 0,
+        Err(_e) => return std::i64::MAX,
         Ok(s) => s,
     };
 
     return metrics::levenshtein::distance(a_str, b_str, ignore_case == 1);
+}
+
+#[no_mangle]
+pub extern "C" fn damerau_levenshtein_distance(
+    a: *const c_char,
+    b: *const c_char,
+    ignore_case: c_char,
+) -> i64 {
+    if a.is_null() || b.is_null() {
+        return std::i64::MAX;
+    }
+
+    let a_c_str = unsafe { CStr::from_ptr(a) };
+    let b_c_str = unsafe { CStr::from_ptr(b) };
+
+    let a_str = match a_c_str.to_str() {
+        Err(_e) => return std::i64::MAX,
+        Ok(s) => s,
+    };
+
+    let b_str = match b_c_str.to_str() {
+        Err(_e) => return std::i64::MAX,
+        Ok(s) => s,
+    };
+
+    return metrics::damerau_levenshtein::distance(a_str, b_str, ignore_case == 1);
 }
