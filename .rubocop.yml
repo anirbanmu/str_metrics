@@ -14,15 +14,18 @@ Metrics/ParameterLists:
   Max: 7
 
 Metrics/BlockLength:
-  Enabled: true
   Exclude:
     - spec/**/*
     - str_metrics.gemspec
+
+Metrics/AbcSize:
+  Exclude:
+    - spec/**/*
 
 Metrics/ClassLength:
   Max: 120
 
 Naming/MethodParameterName:
-  Enabled: true
-  Exclude:
-    - spec/**/*
+  AllowedNames:
+    - a
+    - b

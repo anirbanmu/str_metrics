@@ -24,7 +24,7 @@ def account_for_encodings(cases)
   cases.each.with_object([]) do |c, arr|
     encodings.each do |enc0, enc1|
       arr.push(Case.new(c.input[0].encode(enc0), c.input[1].encode(enc1), c.output, **c.keywords))
-    rescue Encoding::UndefinedConversionError
+    rescue Encoding::UndefinedConversionError # rubocop:disable Lint/SuppressedException
     end
   end
 end
