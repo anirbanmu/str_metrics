@@ -39,5 +39,5 @@ fn coefficient_impl(a: &str, b: &str) -> f64 {
         }
     }
 
-    return 2.0 * intersections as f64 / total_bigrams as f64;
+    2.0 * intersections as f64 / total_bigrams as f64
 }

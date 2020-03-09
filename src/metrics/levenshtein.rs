@@ -10,7 +10,7 @@ pub fn distance(a: &str, b: &str, ignore_case: bool) -> i64 {
     distance_impl(&graphemes(a), &graphemes(b))
 }
 
-fn distance_impl<T: Eq>(a: &Vec<T>, b: &Vec<T>) -> i64 {
+fn distance_impl<T: Eq>(a: &[T], b: &[T]) -> i64 {
     let lens = [a.len(), b.len()];
     if lens[0] == 0 {
         return lens[1] as i64;
@@ -33,10 +33,7 @@ fn distance_impl<T: Eq>(a: &Vec<T>, b: &Vec<T>) -> i64 {
 
     for i in 1..rows {
         for j in 1..columns {
-            let cost = match a[i - 1] == b[j - 1] {
-                true => 0,
-                false => 1,
-            };
+            let cost = if a[i - 1] == b[j - 1] { 0 } else { 1 };
 
             dist_matrix[(i, j)] = cmp::min(
                 cmp::min(dist_matrix[(i - 1, j)] + 1, dist_matrix[(i, j - 1)] + 1),

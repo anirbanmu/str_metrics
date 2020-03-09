@@ -16,5 +16,5 @@ pub fn similarity(
         return jaro_similarity.value
             + common_prefix_len as f64 * prefix_scaling_factor * (1.0 - jaro_similarity.value);
     }
-    return jaro_similarity.value;
+    jaro_similarity.value
 }

@@ -29,3 +29,12 @@ Naming/MethodParameterName:
   AllowedNames:
     - a
     - b
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
