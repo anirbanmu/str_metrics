@@ -9,24 +9,22 @@ Gem::Specification.new do |spec|
   spec.email         = ['anirban.mukhop@gmail.com']
 
   spec.summary       = 'Ruby gem providing native implementations of various string metrics'
-  spec.description   = 'Ruby gem (native extension in Rust) providing implementations of various string metrics'
+  spec.description   = 'Ruby gem (native extension in Rust) providing implementations of various string metrics:'\
+  'Sørensen–Dice, Levenshtein, Damerau–Levenshtein, Jaro & Jaro–Winkler. Supports strings convertible to UTF-8.'\
+  'All comparisons are done at the grapheme cluster level.'
   spec.homepage      = 'https://github.com/anirbanmu/str_metrics'
+  spec.license       = 'MIT'
   spec.required_ruby_version = Gem::Requirement.new('>= 2.3.0')
 
   spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
 
   spec.metadata['homepage_uri'] = spec.homepage
+  spec.metadata['bug_tracker_uri'] = 'https://github.com/anirbanmu/str_metrics/issues'
   spec.metadata['source_code_uri'] = 'https://github.com/anirbanmu/str_metrics'
-  spec.metadata['changelog_uri'] = 'https://github.com/anirbanmu/str_metrics/blob/master/CHANGELOG.md'
+  spec.metadata['changelog_uri'] = 'https://github.com/anirbanmu/str_metrics/blob/v#{spec.version}/CHANGELOG.md'
 
-  # Specify which files should be added to the gem when it is released.
-  # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
-  spec.files = Dir.chdir(File.expand_path(__dir__)) do
-    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  end
-  spec.bindir        = 'exe'
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ['lib']
+  spec.files = Dir['lib/**/*.rb', 'src/**/*.rs', 'Cargo.toml', 'extconf.rb', 'LICENSE', 'README.md']
+
   spec.extensions = %w[extconf.rb]
 
   spec.add_runtime_dependency     'ffi'
