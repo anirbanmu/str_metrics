@@ -9,6 +9,6 @@ File.open('Makefile', 'wb') do |f|
     \tmv ./target/release/libstr_metrics.so ./lib/str_metrics
     clean:
     install:
-    \trm -r target ./lib/str_metrics/libstr_metrics.so
+    \trm -r target
   MKCONTENT
 end

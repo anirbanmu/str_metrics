@@ -24,7 +24,11 @@ fn similarity_impl<T: Eq>(a: &[T], b: &[T]) -> JaroSimilarityResult {
     let lens = [graphemes[0].len(), graphemes[1].len()];
 
     let max_length = cmp::max(lens[0], lens[1]);
-    let matching_dist = (max_length / 2) - 1;
+    let matching_dist = if max_length < 2 {
+        0
+    } else {
+        (max_length / 2) - 1
+    };
 
     let mut matching_indices = [
         Vec::with_capacity(max_length),
