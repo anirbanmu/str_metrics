@@ -14,7 +14,7 @@ pub fn distance(a: &str, b: &str, ignore_case: bool) -> i64 {
 }
 
 // From https://en.wikipedia.org/wiki/Damerau-Levenshtein_distance
-fn distance_impl<T: Hash + Eq>(a: &Vec<T>, b: &Vec<T>) -> i64 {
+fn distance_impl<T: Hash + Eq>(a: &[T], b: &[T]) -> i64 {
     let lens = [a.len(), b.len()];
     if lens[0] == 0 {
         return lens[1] as i64;
@@ -41,17 +41,16 @@ fn distance_impl<T: Hash + Eq>(a: &Vec<T>, b: &Vec<T>) -> i64 {
 
     let mut da: HashMap<&T, usize> = HashMap::new();
 
-    for i in 1..lens[0] + 1 {
+    for i in 1..=lens[0] {
         let mut db = 0;
-        for j in 1..lens[1] + 1 {
+        for j in 1..=lens[1] {
             let k = da.entry(&b[j - 1]).or_insert(0);
             let l = db;
-            let cost = match a[i - 1] == b[j - 1] {
-                true => {
-                    db = j;
-                    0
-                }
-                false => 1,
+            let cost = if a[i - 1] == b[j - 1] {
+                db = j;
+                0
+            } else {
+                1
             };
 
             dist_matrix[(i + 1, j + 1)] = cmp::min(

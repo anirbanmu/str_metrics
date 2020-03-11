@@ -8,7 +8,7 @@ mod array_2d;
 pub use array_2d::Array2D;
 
 pub fn graphemes(s: &str) -> Vec<&str> {
-    return UnicodeSegmentation::graphemes(s, true).collect::<Vec<&str>>();
+    UnicodeSegmentation::graphemes(s, true).collect::<Vec<&str>>()
 }
 
 pub fn generate_bigrams(s: &str) -> Vec<&str> {

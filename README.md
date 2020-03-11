@@ -1,11 +1,13 @@
 # StrMetrics
 
+[![checks](https://github.com/anirbanmu/str_metrics/workflows/checks/badge.svg)](https://github.com/anirbanmu/str_metrics/actions?query=workflow%3Achecks)
+
 Ruby gem (native extension in Rust) providing implementations of various string metrics
 
 ## Getting Started
 ### Prerequisites
 
-Install Rust (known to work with `rustc 1.41.0` & `cargo 1.41.0`) with:
+Install Rust (tested with version `>= 1.38.0`) with:
 
 ```sh
 curl https://sh.rustup.rs -sSf | sh

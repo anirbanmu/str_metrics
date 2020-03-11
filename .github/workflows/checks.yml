@@ -1,0 +1,86 @@
+---
+name: checks
+'on': [push]
+jobs:
+  rubocop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+
+      # Cache ruby gems
+      - name: Generate Gemfile.lock
+        run: bundle lock
+      - name: Cache gems
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: v0-${{ runner.os }}-2.7-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            v0-${{ runner.os }}-2.7-gems-
+
+      - name: Install gems
+        run: |
+          bundle config path vendor/bundle
+          bundle install --jobs=4 --retry=3
+      - name: rubocop
+        run: bundle exec rubocop --parallel
+
+  test:
+    strategy:
+      matrix:
+        ruby: [2.7, 2.6, 2.5, 2.4]
+        rust: [1.41.0, 1.40.0, 1.39.0, 1.38.0]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - uses: actions-rs/toolchain@v1
+        id: rust_install
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.rust }}
+          default: true
+
+      # Cache ruby gems
+      - name: Generate Gemfile.lock
+        run: bundle lock
+      - name: Cache gems
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: v0-${{ runner.os }}-${{ matrix.ruby }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            v0-${{ runner.os }}-${{ matrix.ruby }}-gems-
+
+      # Cache cargo files
+      - name: Generate Cargo.lock
+        run: cargo generate-lockfile
+      # seems to be failing to restore for the moment: https://github.com/actions/cache/issues/133
+      # - name: Cache cargo registry
+      #   uses: actions/cache@v1
+      #   with:
+      #     path: ~/.cargo/registry
+      #     key: v0-${{ runner.os }}-${{ steps.rust_install.outputs.rustc_hash }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+      - name: Cache cargo index
+        uses: actions/cache@v1
+        with:
+          path: ~/.cargo/git
+          key: v0-${{ runner.os }}-${{ steps.rust_install.outputs.rustc_hash }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}
+      - name: Cache cargo build
+        uses: actions/cache@v1
+        with:
+          path: target
+          key: v0-${{ runner.os }}-${{ steps.rust_install.outputs.rustc_hash }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Install gems
+        run: |
+          bundle config path vendor/bundle
+          bundle install --jobs=4 --retry=3
+
+      - name: rspec
+        run: bundle exec rake spec

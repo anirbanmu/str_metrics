@@ -14,7 +14,7 @@ pub fn similarity(a: &str, b: &str, ignore_case: bool) -> JaroSimilarityResult {
     similarity_impl(&graphemes(a), &graphemes(b))
 }
 
-fn similarity_impl<T: Eq>(a: &Vec<T>, b: &Vec<T>) -> JaroSimilarityResult {
+fn similarity_impl<T: Eq>(a: &[T], b: &[T]) -> JaroSimilarityResult {
     let mut graphemes = [a, b];
     if graphemes[0].len() > graphemes[1].len() {
         graphemes.swap(0, 1);
@@ -48,9 +48,9 @@ fn similarity_impl<T: Eq>(a: &Vec<T>, b: &Vec<T>) -> JaroSimilarityResult {
                 last_matched_prefix_index = i as i64;
             }
 
-            for j in start..end {
-                if grapheme == &graphemes[1][j] && !b_matched[j] {
-                    b_matched[j] = true;
+            for (j, matched) in b_matched.iter_mut().enumerate().take(end).skip(start) {
+                if grapheme == &graphemes[1][j] && !*matched {
+                    *matched = true;
                     matching_indices[0].push(i);
                     matching_indices[1].push(j);
                     break;
@@ -82,8 +82,8 @@ fn similarity_impl<T: Eq>(a: &Vec<T>, b: &Vec<T>) -> JaroSimilarityResult {
 
     let m = matches as f64;
     let t = transpositions;
-    return JaroSimilarityResult {
+    JaroSimilarityResult {
         value: ((m / lens[0] as f64) + (m / lens[1] as f64) + ((m - t) / m)) / 3.0,
         max_prefix_length: last_matched_prefix_index + 1,
-    };
+    }
 }

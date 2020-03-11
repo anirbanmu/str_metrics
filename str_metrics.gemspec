@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['bug_tracker_uri'] = 'https://github.com/anirbanmu/str_metrics/issues'
   spec.metadata['source_code_uri'] = 'https://github.com/anirbanmu/str_metrics'
-  spec.metadata['changelog_uri'] = 'https://github.com/anirbanmu/str_metrics/blob/v#{spec.version}/CHANGELOG.md'
+  spec.metadata['changelog_uri'] = "https://github.com/anirbanmu/str_metrics/blob/v#{spec.version}/CHANGELOG.md"
 
   spec.files = Dir['lib/**/*.rb', 'src/**/*.rs', 'Cargo.toml', 'extconf.rb', 'LICENSE', 'README.md']
 
