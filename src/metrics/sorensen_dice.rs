@@ -25,6 +25,10 @@ fn coefficient_impl(a: &str, b: &str) -> f64 {
         total_bigrams += b_bigrams.len();
     }
 
+    if total_bigrams == 0 {
+        return 0.0;
+    }
+
     let mut intersections = 0;
     for bigram in &a_bigrams {
         match b_bigrams_hash.entry(bigram) {

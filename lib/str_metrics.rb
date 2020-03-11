@@ -12,8 +12,8 @@ module StrMetrics
     ffi_lib File.expand_path('./str_metrics/libstr_metrics.so', __dir__)
 
     attach_function :sorensen_dice_coefficient, %i[string string char], :double
-    attach_function :levenshtein_distance, %i[string string char], :int
-    attach_function :damerau_levenshtein_distance, %i[string string char], :int
+    attach_function :levenshtein_distance, %i[string string char], :int64
+    attach_function :damerau_levenshtein_distance, %i[string string char], :int64
     attach_function :jaro_similarity, %i[string string char], :double
     attach_function :jaro_winkler_similarity, %i[string string char int double double], :double
     attach_function :jaro_winkler_distance, %i[string string char int double double], :double
@@ -32,28 +32,28 @@ module StrMetrics
   # Namespace for Sorensen-Dice
   module SorensenDice
     def self.coefficient(a, b, ignore_case: false)
-      Native.sorensen_dice_coefficient(a.to_utf8, b.to_utf8, ignore_case ? 1 : 0)
+      Native.sorensen_dice_coefficient(a&.to_utf8, b&.to_utf8, ignore_case ? 1 : 0)
     end
   end
 
   # Namespace for Levenshtein
   module Levenshtein
     def self.distance(a, b, ignore_case: false)
-      Native.levenshtein_distance(a.to_utf8, b.to_utf8, ignore_case ? 1 : 0)
+      Native.levenshtein_distance(a&.to_utf8, b&.to_utf8, ignore_case ? 1 : 0)
     end
   end
 
   # Namespace for Damerau-Levenshtein
   module DamerauLevenshtein
     def self.distance(a, b, ignore_case: false)
-      Native.damerau_levenshtein_distance(a.to_utf8, b.to_utf8, ignore_case ? 1 : 0)
+      Native.damerau_levenshtein_distance(a&.to_utf8, b&.to_utf8, ignore_case ? 1 : 0)
     end
   end
 
   # Namespace for Jaro
   module Jaro
     def self.similarity(a, b, ignore_case: false)
-      Native.jaro_similarity(a.to_utf8, b.to_utf8, ignore_case ? 1 : 0)
+      Native.jaro_similarity(a&.to_utf8, b&.to_utf8, ignore_case ? 1 : 0)
     end
   end
 
@@ -67,8 +67,8 @@ module StrMetrics
       prefix_scaling_bonus_threshold: 0.7
     )
       Native.jaro_winkler_similarity(
-        a.to_utf8,
-        b.to_utf8,
+        a&.to_utf8,
+        b&.to_utf8,
         ignore_case ? 1 : 0,
         4,
         prefix_scaling_factor,
@@ -84,8 +84,8 @@ module StrMetrics
       prefix_scaling_bonus_threshold: 0.7
     )
       Native.jaro_winkler_distance(
-        a.to_utf8,
-        b.to_utf8,
+        a&.to_utf8,
+        b&.to_utf8,
         ignore_case ? 1 : 0,
         4,
         prefix_scaling_factor,

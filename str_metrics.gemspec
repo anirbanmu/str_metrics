@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir['lib/**/*.rb', 'src/**/*.rs', 'Cargo.toml', 'extconf.rb', 'LICENSE', 'README.md']
 
-  spec.extensions = %w[ext/extconf.rb]
+  spec.extensions = %w[extconf.rb]
 
   spec.add_runtime_dependency     'ffi'
   spec.add_development_dependency 'pry'
