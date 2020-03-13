@@ -32,7 +32,7 @@ jobs:
     strategy:
       matrix:
         ruby: [2.7, 2.6, 2.5, 2.4]
-        rust: [1.41.0, 1.40.0, 1.39.0, 1.38.0]
+        rust: [1.42.0, 1.41.0, 1.40.0, 1.39.0, 1.38.0]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -65,17 +65,17 @@ jobs:
       #   uses: actions/cache@v1
       #   with:
       #     path: ~/.cargo/registry
-      #     key: v0-${{ runner.os }}-${{ steps.rust_install.outputs.rustc_hash }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+      #     key: v0-${{ runner.os }}-${{ matrix.rust }}-${{ steps.rust_install.outputs.rustc_hash }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
       - name: Cache cargo index
         uses: actions/cache@v1
         with:
           path: ~/.cargo/git
-          key: v0-${{ runner.os }}-${{ steps.rust_install.outputs.rustc_hash }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}
+          key: v0-${{ runner.os }}-${{ matrix.rust }}-${{ steps.rust_install.outputs.rustc_hash }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}
       - name: Cache cargo build
         uses: actions/cache@v1
         with:
           path: target
-          key: v0-${{ runner.os }}-${{ steps.rust_install.outputs.rustc_hash }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
+          key: v0-${{ runner.os }}-${{ matrix.rust }}-${{ steps.rust_install.outputs.rustc_hash }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
 
       - name: Install gems
         run: |

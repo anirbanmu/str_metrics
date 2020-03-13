@@ -9,14 +9,20 @@ Gem::Specification.new do |spec|
   spec.email         = ['anirban.mukhop@gmail.com']
 
   spec.summary       = 'Ruby gem providing native implementations of various string metrics'
-  spec.description   = 'Ruby gem (native extension in Rust) providing implementations of various string metrics:'\
-  'Sørensen–Dice, Levenshtein, Damerau–Levenshtein, Jaro & Jaro–Winkler. Supports strings convertible to UTF-8.'\
-  'All comparisons are done at the grapheme cluster level.'
+  spec.description   = [
+    'Ruby gem (native extension in Rust) providing implementations of various string metrics.',
+    'Current metrics supported are: Sørensen–Dice, Levenshtein, Damerau–Levenshtein, Jaro & Jaro–Winkler.',
+    'Strings that are UTF-8 encodable (convertible to UTF-8 representation) are supported.',
+    'All comparison of strings is done at the grapheme cluster level as described by',
+    '[Unicode Standard Annex #29](https://www.unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries);',
+    'this may be different from many gems that calculate string metrics.'
+  ].join(' ')
+
   spec.homepage      = 'https://github.com/anirbanmu/str_metrics'
   spec.license       = 'MIT'
   spec.required_ruby_version = Gem::Requirement.new('>= 2.3.0')
 
-  spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
+  spec.metadata['allowed_push_host'] = 'https://rubygems.org'
 
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['bug_tracker_uri'] = 'https://github.com/anirbanmu/str_metrics/issues'

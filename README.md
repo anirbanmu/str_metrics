@@ -2,7 +2,7 @@
 
 [![checks](https://github.com/anirbanmu/str_metrics/workflows/checks/badge.svg)](https://github.com/anirbanmu/str_metrics/actions?query=workflow%3Achecks)
 
-Ruby gem (native extension in Rust) providing implementations of various string metrics
+Ruby gem (native extension in Rust) providing implementations of various string metrics. Current metrics supported are: Sørensen–Dice, Levenshtein, Damerau–Levenshtein, Jaro & Jaro–Winkler. Strings that are UTF-8 encodable (convertible to UTF-8 representation) are supported. All comparison of strings is done at the grapheme cluster level as described by [Unicode Standard Annex #29](https://www.unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries); this may be different from many gems that calculate string metrics.
 
 ## Getting Started
 ### Prerequisites
@@ -15,6 +15,8 @@ curl https://sh.rustup.rs -sSf | sh
 
 ### Installation
 
+#### With [`bundler`](https://bundler.io/)
+
 Add this line to your application's Gemfile:
 
 ```ruby
@@ -25,13 +27,19 @@ And then execute:
 
     $ bundle install
 
-Or install it yourself as:
+#### Without `bundler`
 
     $ gem install str_metrics
 
 ## Usage
 
-All metrics in this gem will work with any UTF-8 encodable (convertible to UTF-8 representation) Ruby string. Of note (and possibly different from other libraries of this nature) is the fact that all comparisons are done based on grapheme clusters, utilizing functionality provided by [unicode-segmentation](https://crates.io/crates/unicode-segmentation) & as described by [Unicode Standard Annex #29](https://www.unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries).
+All you need to do to use the metrics provided in this gem is to make sure `str_metrics` is required like:
+
+```ruby
+require 'str_metrics'
+```
+
+Each metric is shown below with an example & meanings of optional parameters.
 
 ### Sørensen–Dice
 
