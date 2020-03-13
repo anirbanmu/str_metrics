@@ -1,6 +1,8 @@
 # StrMetrics
 
 [![checks](https://github.com/anirbanmu/str_metrics/workflows/checks/badge.svg)](https://github.com/anirbanmu/str_metrics/actions?query=workflow%3Achecks)
+[![Gem Version](https://badge.fury.io/rb/str_metrics.svg)](https://rubygems.org/gems/str_metrics)
+[![license](https://img.shields.io/github/license/anirbanmu/str_metrics?style=plastic)](LICENSE)
 
 Ruby gem (native extension in Rust) providing implementations of various string metrics. Current metrics supported are: Sørensen–Dice, Levenshtein, Damerau–Levenshtein, Jaro & Jaro–Winkler. Strings that are UTF-8 encodable (convertible to UTF-8 representation) are supported. All comparison of strings is done at the grapheme cluster level as described by [Unicode Standard Annex #29](https://www.unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries); this may be different from many gems that calculate string metrics.
 
