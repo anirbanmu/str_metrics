@@ -2,14 +2,18 @@
 
 require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
-# require 'helix_runtime/build_task'
+require 'ffi'
+require 'fileutils'
 
-# HelixRuntime::BuildTask.new
 RSpec::Core::RakeTask.new(:spec)
 
 task :rust_build do
   `cargo rustc --release`
-  `mv -f ./target/release/libstr_metrics.so ./lib/str_metrics`
+
+  lib_name = FFI::Platform::OS == 'windows' ? 'str_metrics' : 'libstr_metrics'
+  src = File.expand_path(File.join(__dir__, 'target', 'release', "#{lib_name}.#{FFI::Platform::LIBSUFFIX}"))
+  dest = File.expand_path(File.join(__dir__, 'lib', 'str_metrics'))
+  FileUtils.cp(src, dest, verbose: true)
 end
 
 task spec: :rust_build

@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
     'Current metrics supported are: Sørensen–Dice, Levenshtein, Damerau–Levenshtein, Jaro & Jaro–Winkler.',
     'Strings that are UTF-8 encodable (convertible to UTF-8 representation) are supported.',
     'All comparison of strings is done at the grapheme cluster level as described by',
-    '[Unicode Standard Annex #29](https://www.unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries);',
+    'Unicode Standard Annex #29 (https://www.unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries);',
     'this may be different from many gems that calculate string metrics.'
   ].join(' ')
 

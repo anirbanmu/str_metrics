@@ -9,7 +9,8 @@ module StrMetrics
   module Native
     extend FFI::Library
 
-    ffi_lib File.expand_path('./str_metrics/libstr_metrics.so', __dir__)
+    LIB_NAME = FFI::Platform::OS == 'windows' ? 'str_metrics' : 'libstr_metrics'
+    ffi_lib File.expand_path(File.join(__dir__, 'str_metrics', "#{LIB_NAME}.#{FFI::Platform::LIBSUFFIX}"))
 
     attach_function :sorensen_dice_coefficient, %i[string string char], :double
     attach_function :levenshtein_distance, %i[string string char], :int64
