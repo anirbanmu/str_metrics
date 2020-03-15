@@ -17,5 +17,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Github Actions workflow to run checks on every push.
 
 \[Unreleased\]: https://github.com/anirbanmu/str_metrics/compare/v0.1.1...HEAD <br/>
-\[0.1.1\]: https://github.com/anirbanmu/str_metrics/releases/tag/v0.1.0...v0.1.1 <br/>
+\[0.1.1\]: https://github.com/anirbanmu/str_metrics/compare/v0.1.0...v0.1.1 <br/>
 \[0.1.0\]: https://github.com/anirbanmu/str_metrics/releases/tag/v0.1.0
