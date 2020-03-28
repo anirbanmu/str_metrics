@@ -15,7 +15,7 @@ end
 DEFAULT_RUBY_VERSION = '2.7'
 DEFAULT_RUST_VERSION = '1.42.0'
 
-RUBY_VERSIONS = Set.new([DEFAULT_RUBY_VERSION, '2.7', '2.6', '2.5', '2.4']).to_a.freeze
+RUBY_VERSIONS = Set.new([DEFAULT_RUBY_VERSION, '2.7', '2.6', '2.5', '2.4', '2.3', 'jruby', 'truffleruby']).to_a.freeze
 RUST_VERSIONS = Set.new([DEFAULT_RUST_VERSION, '1.42.0', '1.41.0', '1.40.0', '1.39.0', '1.38.0']).to_a.freeze
 
 INSTALL_GEMS_STEPS = [
@@ -90,7 +90,7 @@ CACHE_CARGO_STEPS = [
 
 INSTALL_RUBY_STEPS = [
   {
-    uses: 'actions/setup-ruby@v1',
+    uses: 'ruby/setup-ruby@v1',
     with: { 'ruby-version': '${{ matrix.ruby }}' }
   }
 ].freeze
