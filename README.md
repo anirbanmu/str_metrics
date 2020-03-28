@@ -4,7 +4,7 @@
 [![Gem Version](https://badge.fury.io/rb/str_metrics.svg)](https://rubygems.org/gems/str_metrics)
 [![license](https://img.shields.io/github/license/anirbanmu/str_metrics?style=plastic)](LICENSE)
 
-Ruby gem (native extension in Rust) providing implementations of various string metrics. Current metrics supported are: Sørensen–Dice, Levenshtein, Damerau–Levenshtein, Jaro & Jaro–Winkler. Strings that are UTF-8 encodable (convertible to UTF-8 representation) are supported. All comparison of strings is done at the grapheme cluster level as described by [Unicode Standard Annex #29](https://www.unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries); this may be different from many gems that calculate string metrics. Gem should work on Linux, MacOS & Windows.
+Ruby gem (native extension in Rust) providing implementations of various string metrics. Current metrics supported are: Sørensen–Dice, Levenshtein, Damerau–Levenshtein, Jaro & Jaro–Winkler. Strings that are UTF-8 encodable (convertible to UTF-8 representation) are supported. All comparison of strings is done at the grapheme cluster level as described by [Unicode Standard Annex #29](https://www.unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries); this may be different from many gems that calculate string metrics. See [here](#known-compatibility) for known compatibility.
 
 ## Getting Started
 ### Prerequisites
@@ -14,6 +14,17 @@ Install Rust (tested with version `>= 1.38.0`) with:
 ```sh
 curl https://sh.rustup.rs -sSf | sh
 ```
+
+### Known compatibility
+
+#### Ruby
+`2.7`, `2.6`, `2.5`, `2.4`, `2.3`, `jruby`, `truffleruby`
+
+#### Rust
+`1.42.0`, `1.41.0`, `1.40.0`, `1.39.0`, `1.38.0`
+
+#### Platforms
+`Linux`, `MacOS`, `Windows`
 
 ### Installation
 
