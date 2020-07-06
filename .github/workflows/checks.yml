@@ -16,9 +16,10 @@ jobs:
         - jruby
         - truffleruby
         rust:
-        - 1.43.0
+        - 1.44.0
         - stable
         - nightly
+        - 1.43.1
         - 1.42.0
         - 1.41.0
         - 1.40.0
@@ -30,8 +31,6 @@ jobs:
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: "${{ matrix.ruby }}"
-    - name: Upgrade rubygems to latest
-      run: gem update --system
     - uses: actions-rs/toolchain@v1
       id: rust_install
       with:
@@ -78,8 +77,6 @@ jobs:
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: "${{ matrix.ruby }}"
-    - name: Upgrade rubygems to latest
-      run: gem update --system
     - name: Generate Gemfile.lock
       run: bundle lock
     - name: Cache gems
@@ -101,15 +98,13 @@ jobs:
         ruby:
         - '2.7'
         rust:
-        - 1.43.0
+        - 1.44.0
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: "${{ matrix.ruby }}"
-    - name: Upgrade rubygems to latest
-      run: gem update --system
     - uses: actions-rs/toolchain@v1
       id: rust_install
       with:
@@ -151,15 +146,13 @@ jobs:
         ruby:
         - '2.7'
         rust:
-        - 1.43.0
+        - 1.44.0
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: "${{ matrix.ruby }}"
-    - name: Upgrade rubygems to latest
-      run: gem update --system
     - uses: actions-rs/toolchain@v1
       id: rust_install
       with:
@@ -201,15 +194,13 @@ jobs:
         ruby:
         - '2.7'
         rust:
-        - 1.43.0
+        - 1.44.0
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: "${{ matrix.ruby }}"
-    - name: Upgrade rubygems to latest
-      run: gem update --system
     - uses: actions-rs/toolchain@v1
       id: rust_install
       with:
@@ -255,15 +246,13 @@ jobs:
         ruby:
         - '2.7'
         rust:
-        - 1.43.0
+        - 1.44.0
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: "${{ matrix.ruby }}"
-    - name: Upgrade rubygems to latest
-      run: gem update --system
     - uses: actions-rs/toolchain@v1
       id: rust_install
       with:
@@ -309,15 +298,13 @@ jobs:
         ruby:
         - '2.7'
         rust:
-        - 1.43.0
+        - 1.44.0
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: "${{ matrix.ruby }}"
-    - name: Upgrade rubygems to latest
-      run: gem update --system
     - uses: actions-rs/toolchain@v1
       id: rust_install
       with:
