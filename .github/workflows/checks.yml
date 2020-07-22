@@ -16,12 +16,13 @@ jobs:
         - jruby
         - truffleruby
         rust:
-        - 1.44.0
+        - 1.45.0
         - stable
         - nightly
+        - 1.44.1
         - 1.43.1
         - 1.42.0
-        - 1.41.0
+        - 1.41.1
         - 1.40.0
         - 1.39.0
         - 1.38.0
@@ -43,9 +44,9 @@ jobs:
       uses: actions/cache@v1
       with:
         path: vendor/bundle
-        key: v0-${{ runner.os }}-${{ matrix.ruby }}-gems-${{ hashFiles('**/Gemfile.lock')
+        key: v1-${{ runner.os }}-${{ matrix.ruby }}-gems-${{ hashFiles('**/Gemfile.lock')
           }}
-        restore-keys: v0-${{ runner.os }}-${{ matrix.ruby }}-gems-
+        restore-keys: v1-${{ runner.os }}-${{ matrix.ruby }}-gems-
     - name: Generate Cargo.lock
       run: cargo generate-lockfile
     - name: Cache cargo index
@@ -83,9 +84,9 @@ jobs:
       uses: actions/cache@v1
       with:
         path: vendor/bundle
-        key: v0-${{ runner.os }}-${{ matrix.ruby }}-gems-${{ hashFiles('**/Gemfile.lock')
+        key: v1-${{ runner.os }}-${{ matrix.ruby }}-gems-${{ hashFiles('**/Gemfile.lock')
           }}
-        restore-keys: v0-${{ runner.os }}-${{ matrix.ruby }}-gems-
+        restore-keys: v1-${{ runner.os }}-${{ matrix.ruby }}-gems-
     - name: Install gems
       run: |-
         bundle config path vendor/bundle
@@ -98,7 +99,7 @@ jobs:
         ruby:
         - '2.7'
         rust:
-        - 1.44.0
+        - 1.45.0
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
@@ -117,9 +118,9 @@ jobs:
       uses: actions/cache@v1
       with:
         path: vendor/bundle
-        key: v0-${{ runner.os }}-${{ matrix.ruby }}-gems-${{ hashFiles('**/Gemfile.lock')
+        key: v1-${{ runner.os }}-${{ matrix.ruby }}-gems-${{ hashFiles('**/Gemfile.lock')
           }}
-        restore-keys: v0-${{ runner.os }}-${{ matrix.ruby }}-gems-
+        restore-keys: v1-${{ runner.os }}-${{ matrix.ruby }}-gems-
     - name: Generate Cargo.lock
       run: cargo generate-lockfile
     - name: Cache cargo index
@@ -146,7 +147,7 @@ jobs:
         ruby:
         - '2.7'
         rust:
-        - 1.44.0
+        - 1.45.0
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
@@ -165,9 +166,9 @@ jobs:
       uses: actions/cache@v1
       with:
         path: vendor/bundle
-        key: v0-${{ runner.os }}-${{ matrix.ruby }}-gems-${{ hashFiles('**/Gemfile.lock')
+        key: v1-${{ runner.os }}-${{ matrix.ruby }}-gems-${{ hashFiles('**/Gemfile.lock')
           }}
-        restore-keys: v0-${{ runner.os }}-${{ matrix.ruby }}-gems-
+        restore-keys: v1-${{ runner.os }}-${{ matrix.ruby }}-gems-
     - name: Generate Cargo.lock
       run: cargo generate-lockfile
     - name: Cache cargo index
@@ -194,7 +195,7 @@ jobs:
         ruby:
         - '2.7'
         rust:
-        - 1.44.0
+        - 1.45.0
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -213,9 +214,9 @@ jobs:
       uses: actions/cache@v1
       with:
         path: vendor/bundle
-        key: v0-${{ runner.os }}-${{ matrix.ruby }}-gems-${{ hashFiles('**/Gemfile.lock')
+        key: v1-${{ runner.os }}-${{ matrix.ruby }}-gems-${{ hashFiles('**/Gemfile.lock')
           }}
-        restore-keys: v0-${{ runner.os }}-${{ matrix.ruby }}-gems-
+        restore-keys: v1-${{ runner.os }}-${{ matrix.ruby }}-gems-
     - name: Generate Cargo.lock
       run: cargo generate-lockfile
     - name: Cache cargo index
@@ -246,7 +247,7 @@ jobs:
         ruby:
         - '2.7'
         rust:
-        - 1.44.0
+        - 1.45.0
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
@@ -265,9 +266,9 @@ jobs:
       uses: actions/cache@v1
       with:
         path: vendor/bundle
-        key: v0-${{ runner.os }}-${{ matrix.ruby }}-gems-${{ hashFiles('**/Gemfile.lock')
+        key: v1-${{ runner.os }}-${{ matrix.ruby }}-gems-${{ hashFiles('**/Gemfile.lock')
           }}
-        restore-keys: v0-${{ runner.os }}-${{ matrix.ruby }}-gems-
+        restore-keys: v1-${{ runner.os }}-${{ matrix.ruby }}-gems-
     - name: Generate Cargo.lock
       run: cargo generate-lockfile
     - name: Cache cargo index
@@ -298,7 +299,7 @@ jobs:
         ruby:
         - '2.7'
         rust:
-        - 1.44.0
+        - 1.45.0
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
@@ -317,9 +318,9 @@ jobs:
       uses: actions/cache@v1
       with:
         path: vendor/bundle
-        key: v0-${{ runner.os }}-${{ matrix.ruby }}-gems-${{ hashFiles('**/Gemfile.lock')
+        key: v1-${{ runner.os }}-${{ matrix.ruby }}-gems-${{ hashFiles('**/Gemfile.lock')
           }}
-        restore-keys: v0-${{ runner.os }}-${{ matrix.ruby }}-gems-
+        restore-keys: v1-${{ runner.os }}-${{ matrix.ruby }}-gems-
     - name: Generate Cargo.lock
       run: cargo generate-lockfile
     - name: Cache cargo index
