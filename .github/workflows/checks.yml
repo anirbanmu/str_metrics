@@ -16,9 +16,10 @@ jobs:
         - jruby
         - truffleruby
         rust:
-        - 1.45.0
+        - 1.46.0
         - stable
         - nightly
+        - 1.45.2
         - 1.44.1
         - 1.43.1
         - 1.42.0
@@ -99,7 +100,7 @@ jobs:
         ruby:
         - '2.7'
         rust:
-        - 1.45.0
+        - 1.46.0
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
@@ -147,7 +148,7 @@ jobs:
         ruby:
         - '2.7'
         rust:
-        - 1.45.0
+        - 1.46.0
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
@@ -195,7 +196,7 @@ jobs:
         ruby:
         - '2.7'
         rust:
-        - 1.45.0
+        - 1.46.0
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -247,7 +248,7 @@ jobs:
         ruby:
         - '2.7'
         rust:
-        - 1.45.0
+        - 1.46.0
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
@@ -299,7 +300,7 @@ jobs:
         ruby:
         - '2.7'
         rust:
-        - 1.45.0
+        - 1.46.0
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2

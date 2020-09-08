@@ -13,10 +13,10 @@ def deep_stringify_keys(element)
 end
 
 DEFAULT_RUBY_VERSION = '2.7'
-DEFAULT_RUST_VERSION = '1.45.0'
+DEFAULT_RUST_VERSION = '1.46.0'
 
 RUBY_VERSIONS = Set.new([DEFAULT_RUBY_VERSION, '2.7', '2.6', '2.5', '2.4', '2.3', 'jruby', 'truffleruby']).to_a.freeze
-RUST_VERSIONS = Set.new([DEFAULT_RUST_VERSION, 'stable', 'nightly', '1.45.0', '1.44.1', '1.43.1', '1.42.0', '1.41.1', '1.40.0', '1.39.0', '1.38.0']).to_a.freeze
+RUST_VERSIONS = Set.new([DEFAULT_RUST_VERSION, 'stable', 'nightly', '1.46.0', '1.45.2', '1.44.1', '1.43.1', '1.42.0', '1.41.1', '1.40.0', '1.39.0', '1.38.0']).to_a.freeze
 
 INSTALL_GEMS_STEPS = [
   {
