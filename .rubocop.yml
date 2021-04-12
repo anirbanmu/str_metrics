@@ -2,6 +2,12 @@ require:
   - rubocop-performance
   - rubocop-rspec
 
+AllCops:
+  NewCops: enable
+
+Gemspec/RequiredRubyVersion:
+  Enabled: false
+
 Layout/LineLength:
   Max: 120
   Exclude:

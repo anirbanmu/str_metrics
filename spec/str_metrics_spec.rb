@@ -11,7 +11,7 @@ class Case
 
   def test_str
     kw = keywords.map { |k, v| "#{k}: #{v}" }.join(', ')
-    kw_string = !kw.empty? ? " with options { #{kw} }" : ''
+    kw_string = kw.empty? ? '' : " with options { #{kw} }"
 
     msg = "comparing \"#{input[0] ? input[0].encode('UTF-8') : 'nil'}\""
     msg += " (#{input[0].encoding})" if input[0]
