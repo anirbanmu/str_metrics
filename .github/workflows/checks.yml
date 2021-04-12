@@ -8,6 +8,7 @@ jobs:
     strategy:
       matrix:
         ruby:
+        - '3.0'
         - '2.7'
         - '2.6'
         - '2.5'
@@ -16,9 +17,14 @@ jobs:
         - jruby
         - truffleruby
         rust:
-        - 1.46.0
+        - 1.51.0
         - stable
         - nightly
+        - 1.50.0
+        - 1.49.0
+        - 1.48.0
+        - 1.47.0
+        - 1.46.0
         - 1.45.2
         - 1.44.1
         - 1.43.1
@@ -72,7 +78,7 @@ jobs:
     strategy:
       matrix:
         ruby:
-        - '2.7'
+        - '3.0'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -98,9 +104,9 @@ jobs:
     strategy:
       matrix:
         ruby:
-        - '2.7'
+        - '3.0'
         rust:
-        - 1.46.0
+        - 1.51.0
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
@@ -146,9 +152,9 @@ jobs:
     strategy:
       matrix:
         ruby:
-        - '2.7'
+        - '3.0'
         rust:
-        - 1.46.0
+        - 1.51.0
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
@@ -194,9 +200,9 @@ jobs:
     strategy:
       matrix:
         ruby:
-        - '2.7'
+        - '3.0'
         rust:
-        - 1.46.0
+        - 1.51.0
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -246,9 +252,9 @@ jobs:
     strategy:
       matrix:
         ruby:
-        - '2.7'
+        - '3.0'
         rust:
-        - 1.46.0
+        - 1.51.0
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
@@ -298,9 +304,9 @@ jobs:
     strategy:
       matrix:
         ruby:
-        - '2.7'
+        - '3.0'
         rust:
-        - 1.46.0
+        - 1.51.0
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
