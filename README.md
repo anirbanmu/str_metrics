@@ -154,8 +154,8 @@ rake install
 To deploy a new version of the gem to rubygems:
 
 1. Bump version in [version.rb](lib/str_metrics/version.rb) according to [SemVer](https://semver.org/).
-2. Get your code merged to master
-3. After a `git pull` on master:
+2. Get your code merged to `main` branch
+3. After a `git pull` on `main` branch:
 
 ```bash
 rake build && rake release
