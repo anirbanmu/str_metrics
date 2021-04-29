@@ -10,13 +10,15 @@ tests = [
 ]
 long_words_tests = [
   [
-    'The Jaro–Winkler distance uses a prefix scale p which gives more favourable ratings to strings that match from the beginning for a set prefix length ll ll .', 'Another rather long string'
+    'The Jaro–Winkler distance uses a prefix scale p which gives more favourable ratings to strings that match from the beginning for a set prefix length ll ll .',
+    'Another rather long string'
   ],
   [
-    'The Jaro–Winkler distance uses a prefix scale p which gives more favourable ratings to strings that match from the beginning for a set prefix length ll ll .', 'This report shows the user CPU time, system CPU time, the sum of the user and system CPU times, and the elapsed real time. The unit of time is seconds.'
+    'The Jaro–Winkler distance uses a prefix scale p which gives more favourable ratings to strings that match from the beginning for a set prefix length ll ll .',
+    'This report shows the user CPU time, system CPU time, the sum of the user and system CPU times, and the elapsed real time. The unit of time is seconds.'
   ]
 ]
-label_width = 'str_metrics, longer words: StrMetrics::JaroWinkler'.length
+label_width = 'str_metrics, longer words: StrMetrics::JaroWinkler'.length # rubocop:disable Performance/FixedSize
 
 Benchmark.bm(label_width) do |x|
   x.report('str_metrics, short words: StrMetrics::JaroWinkler') do
