@@ -4,6 +4,7 @@ require:
 
 AllCops:
   NewCops: enable
+  SuggestExtensions: false
 
 Gemspec/RequiredRubyVersion:
   Enabled: false
@@ -12,6 +13,7 @@ Layout/LineLength:
   Max: 120
   Exclude:
     - spec/**/*
+    - bench/**/*
 
 Metrics/MethodLength:
   Max: 20

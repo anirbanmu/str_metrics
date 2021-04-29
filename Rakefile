@@ -17,3 +17,7 @@ task :rust_build do
 end
 
 task spec: :rust_build
+
+task bench: :rust_build do
+  ruby File.expand_path(File.join(__dir__, 'bench', 'rust_vs_ruby.rb'))
+end
