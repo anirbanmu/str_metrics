@@ -24,7 +24,7 @@ Benchmark.bm(label_width) do |x|
   x.report('str_metrics, short words: StrMetrics::JaroWinkler') do
     50_000.times do
       tests.each do |words|
-        StrMetrics::JaroWinkler.distance(words[0], words[1])
+        StrMetrics::JaroWinkler.similarity(words[0], words[1])
       end
     end
   end
@@ -41,7 +41,7 @@ Benchmark.bm(label_width) do |x|
   x.report('str_metrics, longer words: StrMetrics::JaroWinkler') do
     50_000.times do
       long_words_tests.each do |words|
-        StrMetrics::JaroWinkler.distance(words[0], words[1])
+        StrMetrics::JaroWinkler.similarity(words[0], words[1])
       end
     end
   end
