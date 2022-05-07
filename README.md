@@ -9,7 +9,7 @@ Ruby gem (native extension in Rust) providing implementations of various string 
 ## Getting Started
 ### Prerequisites
 
-Install Rust (tested with version `>= 1.38.0`) with:
+Install Rust (tested with version `>= 1.47.0`) with:
 
 ```sh
 curl https://sh.rustup.rs -sSf | sh
@@ -18,10 +18,10 @@ curl https://sh.rustup.rs -sSf | sh
 ### Known compatibility
 
 #### Ruby
-`3.0`, `2.7`, `2.6`, `2.5`, `2.4`, `2.3`, `jruby`, `truffleruby`
+`3.1`, `3.0`, `2.7`, `2.6`, `2.5`, `2.4`, `2.3`, `jruby`, `truffleruby`
 
 #### Rust
-`1.51.0`, `1.50.0`, `1.49.0`, `1.48.0`, `1.47.0`, `1.46.0`, `1.45.2`, `1.44.1`, `1.43.1`, `1.42.0`, `1.41.1`, `1.40.0`, `1.39.0`, `1.38.0`
+`1.60.0`, `1.59.0`, `1.58.1`, `1.57.0`, `1.56.1`, `1.55.0`, `1.54.0`, `1.53.0`, `1.52.1`, `1.51.0`, `1.50.0`, `1.49.0`, `1.48.0`, `1.47.0`
 
 #### Platforms
 `Linux`, `MacOS`, `Windows`
