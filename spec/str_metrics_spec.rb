@@ -41,7 +41,7 @@ INT64_MAX = 9_223_372_036_854_775_807
 
 RSpec.describe StrMetrics do
   it 'has a version number' do
-    expect(StrMetrics::VERSION).not_to be nil
+    expect(StrMetrics::VERSION).not_to be_nil
   end
 
   describe 'SorensenDice' do
